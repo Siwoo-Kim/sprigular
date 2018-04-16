@@ -135,7 +135,7 @@ var AppModule = /** @class */ (function () {
 
 var BACKEND_URL_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]("BACKEND_TOKEN");
 var DEV_SERVER_URL = 'http://' + location.hostname + ":8080/rest/";
-var PROD_SERVER_URL = 'https://' + location.hostname + ":8080/rest/";
+var PROD_SERVER_URL = 'https://' + location.hostname + "/rest/";
 
 
 /***/ }),

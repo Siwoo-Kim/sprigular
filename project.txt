@@ -1,6 +1,15 @@
 
 Domain
 
+Book[reference]
+    title
+    name
+
+
+
+
+Domain
+
 BasicTime
     updated
     created
