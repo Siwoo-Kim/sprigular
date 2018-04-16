@@ -1,0 +1,36 @@
+
+Domain
+
+BasicTime
+    updated
+    created
+
+Section
+    Name
+    Topic :List<Topic>
+    BasicTime
+    Description
+
+Topic
+    Name
+    section :Section
+    Document :List<Document>
+    BasicTime
+    Description
+
+Document
+    Name
+    BasicTime
+    Description
+    Chapter :List
+    GitHubUrl
+
+
+Chapter
+    Title
+    Index
+    Content
+    Code: List<String>
+
+
+
