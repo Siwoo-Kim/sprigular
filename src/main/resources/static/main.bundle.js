@@ -27,7 +27,7 @@ module.exports = ""
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container>\n  <mat-sidenav class=\"app-sidenav\" mode=\"over\" align=\"start\" style=\"width: 250px\" #sidenav>\n    Start sidenav content\n  </mat-sidenav>\n  <mat-sidenav-content style=\"width: 100%\">\n    <app-header (onSidenavToggle)=\"sidenav.toggle()\"></app-header>\n    <main class=\"container-fluid\">\n      <router-outlet></router-outlet>\n    </main>\n\n    <mat-toolbar\n      style=\"margin: 55px 0 0 0 ;padding: 15px\"\n      fxLayout\n      fxLayoutAlign=\"space-between center\"\n      color=\"primary\">\n      <div class=\"images\" >\n        <img style=\"display: inline\" src=\"/assets/article_main.png\" class=\"ui mini image\">\n        <i class=\"ui icon large angular red\" style=\"color: red\"></i>\n      </div>\n      <div class=\"ui horizontal inverted small divided link list\">\n        <a class=\"item\" href=\"#\">Site Map</a>\n        <a class=\"item\" href=\"#\">Contact Us</a>\n        <a class=\"item\" href=\"#\">Terms and Conditions</a>\n        <a class=\"item\" href=\"#\">Privacy Policy</a>\n      </div>\n    </mat-toolbar>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n\n"
+module.exports = "<mat-sidenav-container>\n  <mat-sidenav class=\"app-sidenav\" mode=\"over\" align=\"start\" style=\"width: 250px\" #sidenav>\n    <div class=\"container mt-3\">\n      <div class=\"ui list\">\n        <a class=\"item\">\n          <i class=\"help icon\"></i>\n          <div class=\"content\">\n            <div class=\"header\">Floated Icon</div>\n            <div class=\"description\">This text will always have a left margin to make sure it sits alongside your icon</div>\n          </div>\n        </a>\n        <a class=\"item\">\n          <i class=\"right triangle icon\"></i>\n          <div class=\"content\">\n            <div class=\"header\">Icon Alignment</div>\n            <div class=\"description\">Floated icons are by default top aligned. To have an icon top aligned try this example.</div>\n          </div>\n        </a>\n        <div class=\"item\">\n          <i class=\"help icon\"></i>\n          Inline Text\n        </div>\n      </div>\n    </div>\n  </mat-sidenav>\n  <mat-sidenav-content style=\"width: 100%\">\n    <app-header (onSidenavToggle)=\"sidenav.toggle()\"></app-header>\n    <main class=\"container-fluid\">\n      <router-outlet></router-outlet>\n    </main>\n\n    <app-footer></app-footer>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n\n"
 
 /***/ }),
 
@@ -140,6 +140,27 @@ var PROD_SERVER_URL = 'https://' + location.hostname + "/rest/";
 
 /***/ }),
 
+/***/ "./src/app/model/paragraph.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Paragraph; });
+var Paragraph = /** @class */ (function () {
+    function Paragraph(id, title, code, description, parent, children) {
+        this.id = id;
+        this.title = title;
+        this.code = code;
+        this.description = description;
+        this.parent = parent;
+        this.children = children;
+    }
+    return Paragraph;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/model/section.model.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -206,7 +227,7 @@ module.exports = "\r\n.section-bootstrap-wrapper{\r\n  margin-top: 15px;\r\n  mi
 /***/ "./src/app/section/section-bootstrap.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<div class=\"container-fluid section-bootstrap-wrapper\" fxLayout=\"row\">\n  <app-section-sidenav [section]=\"section\" [topicNames]=\"topicNames\" fxFlex=\"0 1 230px\"></app-section-sidenav>\n  <div class=\"main ui intro container ml-2 section-bootstrap-content\" >\n    <router-outlet></router-outlet>\n  </div>\n</div>\n"
+module.exports = "\n\n<div class=\"container-fluid section-bootstrap-wrapper\" fxLayout=\"row\">\n  <app-section-sidenav [section]=\"section\" [topicNames]=\"topicNames\" fxFlex=\"0 1 230px\"></app-section-sidenav>\n  <div class=\"main ui intro container-fluid ml-2 m-4 section-bootstrap-content\" >\n    <router-outlet></router-outlet>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -279,7 +300,7 @@ module.exports = "\r\n.ui.meta {\r\n  display: inline; font-size: 0.5em;color: r
 /***/ "./src/app/section/section-main/section-main.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"ui dividing header\" fxLayout  fxLayoutAlign=\"space-between center\">\n      <span>{{section?.name}}\n        <a class=\"anchor\" id=\"{{section?.id}}\"></a>\n      </span>\n  <span class=\"ui meta\">\n    <div style=\"display: flex\">\n      <mat-icon>alarm</mat-icon>&nbsp; Created: {{ section?.basicTime.created | date }}\n    </div>\n    <div style=\"display: flex\">\n      <mat-icon>alarm</mat-icon>&nbsp; Updated: {{ section?.basicTime.created | date }}\n    </div>\n  </span>\n</h2>\n<div class=\"no example\">\n  <h4>Overall description</h4>\n  <i class=\"fitted icon code\"></i>\n  <a class=\"anchor\" ></a>\n  <p>\n    {{section?.description}}\n  </p>\n  <h4>Related Topics:</h4>\n  <app-section-topiclist [section]=\"section\" [topicNames]=\"topicNames\"></app-section-topiclist>\n</div>\n\n<div class=\"container-fluid p-5 mt-5 list-topic-btn-wrapper\" fxLayout=\"row wrap\"  fxLayoutAlign=\"start start\">\n  <button *ngFor=\"let topicName of topicNames\" mat-raised-button>\n    {{ topicName}}\n  </button>\n</div>\n"
+module.exports = "<h2 class=\"ui dividing header\"\n    fxLayout\n    fxLayoutAlign=\"space-between center\">\n      <span>{{section?.name}}\n        <a class=\"anchor\" id=\"{{section?.id}}\"></a>\n      </span>\n  <span class=\"ui meta\">\n    <div style=\"display: flex\">\n      <mat-icon>alarm</mat-icon>&nbsp; Created: {{ section?.basicTime.created | date }}\n    </div>\n    <div style=\"display: flex\">\n      <mat-icon>alarm</mat-icon>&nbsp; Updated: {{ section?.basicTime.created | date }}\n    </div>\n  </span>\n</h2>\n<div class=\"no example\">\n  <h4>Overall description</h4>\n  <i class=\"fitted icon code\"></i>\n  <a class=\"anchor\" ></a>\n  <p>\n    {{section?.description}}\n  </p>\n  <h4>Related Topics:</h4>\n  <app-section-topiclist [section]=\"section\" [topicNames]=\"topicNames\"></app-section-topiclist>\n</div>\n\n<div class=\"container-fluid p-5 mt-5 list-topic-btn-wrapper\" fxLayout=\"row wrap\"  fxLayoutAlign=\"start start\">\n  <button *ngFor=\"let topicName of topicNames\" mat-raised-button>\n    {{ topicName}}\n  </button>\n</div>\n"
 
 /***/ }),
 
@@ -397,7 +418,7 @@ module.exports = "\r\nmat-panel-title {\r\n  color: #9e9e9e;\r\n  font-size: 13p
 /***/ "./src/app/section/section-sidenav/section-sidenav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-list fxLayout=\"column\"  fxFill fxLayoutAlign=\"start\">\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title >\n        {{ section?.name }}\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-list  >\n      <a mat-list-item\n         fxFlexAlign=\"center\"\n         *ngFor=\"let topicName of topicNames\"\n         [routerLink]=\"['/section',section.name,topicName]\">\n        <p> {{ topicName }} </p>\n        <mat-divider [inset]=\"true\"></mat-divider>\n      </a>\n    </mat-list>\n  </mat-expansion-panel>\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title>\n        Extra\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-list>\n    </mat-list>\n  </mat-expansion-panel>\n</mat-list>\n\n"
+module.exports = "<mat-list fxLayout=\"column\"  fxFill fxLayoutAlign=\"start\">\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title >\n        {{ section?.name }}\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-nav-list >\n      <a mat-list-item\n         fxFlexAlign=\"center\"\n         *ngFor=\"let topicName of topicNames\"\n         routerLinkActive=\"active-link\"\n         [routerLink]=\"['/section',section.name,topicName]\">\n        <p> {{ topicName }} </p>\n      </a>\n    </mat-nav-list>\n  </mat-expansion-panel>\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title>\n        Extra\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-list>\n    </mat-list>\n  </mat-expansion-panel>\n</mat-list>\n\n"
 
 /***/ }),
 
@@ -521,12 +542,14 @@ var SectionTopiclistComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__section_main_section_main_component__ = __webpack_require__("./src/app/section/section-main/section-main.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__topic_topic_component__ = __webpack_require__("./src/app/section/topic/topic.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__section_routing_module__ = __webpack_require__("./src/app/section/section-routing.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__topic_paragraph_paragraph_component__ = __webpack_require__("./src/app/section/topic/paragraph/paragraph.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -555,7 +578,8 @@ var SectionModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_6__section_sidenav_section_sidenav_component__["a" /* SectionSidenavComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__section_topiclist_section_topiclist_component__["a" /* SectionTopiclistComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__section_main_section_main_component__["a" /* SectionMainComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__topic_topic_component__["a" /* TopicComponent */]
+                __WEBPACK_IMPORTED_MODULE_9__topic_topic_component__["a" /* TopicComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__topic_paragraph_paragraph_component__["a" /* ParagraphComponent */],
             ]
         })
     ], SectionModule);
@@ -566,17 +590,71 @@ var SectionModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/section/topic/paragraph/paragraph.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "\r\n\r\n.paragraph-icon {\r\n  color: #db2828;\r\n}\r\n\r\n.paragraph-wrapper p {\r\n  margin-top: 25px;\r\n  margin-bottom: 25px;\r\n  font-size: 16px;\r\n  line-height: 28px;\r\n  font-weight: 400;\r\n  padding: 15px;\r\n  font-family: 'Lato', sans-serif !important;\r\n}\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/app/section/topic/paragraph/paragraph.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"paragraph-wrapper mt-5\">\n  <h3 class=\"ui dividing header\">\n     <i class=\"paragraph-icon ui icon angular\"></i>{{ paragraph?.title }}\n  </h3>\n  <p>\n    {{paragraph?.description}}\n  </p>\n  <div class=\"ui existing segment\">\n    <pre >{{paragraph.code}}</pre>\n  </div>\n</div>\n<app-paragraph *ngFor=\"let child of paragraph.children\" [paragraph]=\"child\"></app-paragraph>\n"
+
+/***/ }),
+
+/***/ "./src/app/section/topic/paragraph/paragraph.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ParagraphComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_paragraph_model__ = __webpack_require__("./src/app/model/paragraph.model.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ParagraphComponent = /** @class */ (function () {
+    function ParagraphComponent() {
+    }
+    ParagraphComponent.prototype.ngOnInit = function () { };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__model_paragraph_model__["a" /* Paragraph */])
+    ], ParagraphComponent.prototype, "paragraph", void 0);
+    ParagraphComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-paragraph',
+            template: __webpack_require__("./src/app/section/topic/paragraph/paragraph.component.html"),
+            styles: [__webpack_require__("./src/app/section/topic/paragraph/paragraph.component.css")]
+        })
+    ], ParagraphComponent);
+    return ParagraphComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/section/topic/topic.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.ui.meta {\r\n  display: inline; font-size: 0.5em;color: rgba(0,0,0,.4);margin-right: .3em;\r\n}\r\n\r\n.no.example i {\r\n  display: inline;\r\n}\r\n\r\n.no.example p {\r\n  padding: 15px;\r\n}\r\n\r\n.list-topic-btn-wrapper button {\r\n  font-size: 0.9em !important;\r\n  font-weight: bold !important;\r\n  width: 250px !important;\r\n  margin: 10px !important;\r\n}\r\n"
+module.exports = "\r\n.ui.meta {\r\n  display: inline; font-size: 0.5em;color: rgba(0,0,0,.4);margin-right: .3em;\r\n}\r\n\r\n.no.example i {\r\n  display: inline;\r\n}\r\n\r\n.no.example p {\r\n  padding: 15px;\r\n}\r\n\r\n.list-topic-btn-wrapper button {\r\n  font-size: 0.9em !important;\r\n  font-weight: bold !important;\r\n  width: 250px !important;\r\n  margin: 10px !important;\r\n}\r\n\r\n.topic-main-wrapper {\r\n  margin-top: 15px;\r\n  font-size: 15px;\r\n  line-height: 27px;\r\n  font-weight: 500;\r\n}\r\n\r\n.topic-section p {\r\n  margin-top: 25px;\r\n  padding: 15px;\r\n  margin-bottom: 25px;\r\n  font-size: 16px;\r\n  line-height: 28px;\r\n  font-weight: 400;\r\n  font-family: 'Lato', sans-serif !important;\r\n}\r\n\r\n.right-nav {\r\n  margin-left: 15px;\r\n}\r\n\r\ndiv.ui.sticky {\r\n  color: rgba(0,0,0,.54);\r\n  padding-left: 15px;\r\n  border-left: 2px solid rgba(0,0,0,.54);\r\n}\r\n\r\n.right-nav h4.header {\r\n  font-size: 0.9em;\r\n}\r\n"
 
 /***/ }),
 
 /***/ "./src/app/section/topic/topic.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-tab-group>\r\n  <mat-tab label=\"Tab 1\">\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>subject</mat-icon>\r\n    </ng-template>\r\n    <div class=\"demo-tab-content\"\r\n         fxLayout=\"row\"\r\n         fxFlexAlign=\"start start\"\r\n         style=\"margin-top: 15px;     font-size: 15px;line-height: 27px;font-weight: 500;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n      <div fxFlex=\"85%\" class=\"main-content\">\r\n        <h2 class=\"ui dividing header\" fxLayout  fxLayoutAlign=\"space-between center\">\r\n          <span>\r\n            {{ topic?.name }}\r\n            <a class=\"anchor\" id=\"{{section?.id}}\"></a>\r\n          </span>\r\n            <span class=\"ui meta\">\r\n            <div style=\"display: flex\">\r\n              <mat-icon>alarm</mat-icon>&nbsp; Created: {{ topic?.basicTime.created | date }}\r\n            </div>\r\n            <div style=\"display: flex\">\r\n              <mat-icon>alarm</mat-icon>&nbsp; Updated: {{ topic?.basicTime.created | date }}\r\n            </div>\r\n           </span>\r\n        </h2>\r\n        <div class=\"no example\">\r\n          <h4>Overall description</h4>\r\n          <i class=\"fitted icon code\"></i>\r\n          <a class=\"anchor\" ></a>\r\n          <p style=\"font-size: 16px;\r\n      line-height: 28px;    font-weight: 400;\r\n      font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n            {{topic?.description}}\r\n          </p>\r\n        </div>\r\n\r\n        <div class=\"no example mt-5\" *ngFor=\"let paragraph of topic?.paragraphs\">\r\n          <h4> {{ paragraph?.title }}</h4>\r\n          <i class=\"fitted icon code\"></i>\r\n          <a class=\"anchor\" ></a>\r\n          <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n            {{paragraph?.description}}\r\n          </p>\r\n          <div class=\"ui existing segment\">\r\n            <pre >{{paragraph.code}}</pre>\r\n          </div>\r\n          <div class=\"no example mt-5\" *ngFor=\"let paragraph of paragraph.children\">\r\n            <h4> {{ paragraph?.title }}</h4>\r\n            <i class=\"fitted icon code\"></i>\r\n            <a class=\"anchor\" ></a>\r\n            <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n              {{paragraph?.description}}\r\n            </p>\r\n            <div class=\"ui existing segment\">\r\n              <pre >{{paragraph.code}}</pre>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"right-nav\" style=\"margin-left: 15px;\" fxFlex=\"15%\">\r\n        <div class=\"ui sticky\" style=\"    color: rgba(0,0,0,.54);padding-left: 15px;border-left: 2px solid rgba(0,0,0,.54);\">\r\n          <h4 class=\"ui header\" style=\"margin-bottom: 0px\" *ngFor=\"let paragraph of topic?.paragraphs\">\r\n            {{paragraph.title}}\r\n          </h4>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </mat-tab>\r\n  <mat-tab label=\"Tab 2\">\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>code</mat-icon>\r\n    </ng-template>\r\n    <div class=\"demo-tab-content\">\r\n      <div class=\"no example mt-5\" *ngFor=\"let paragraph of topic?.paragraphs\">\r\n        <h4> {{ paragraph?.title }}</h4>\r\n        <i class=\"fitted icon code\"></i>\r\n        <a class=\"anchor\" ></a>\r\n        <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n          {{paragraph?.description}}\r\n        </p>\r\n        <div class=\"ui existing segment\">\r\n          <pre >{{paragraph.code}}</pre>\r\n        </div>\r\n        <div class=\"no example mt-5\" *ngFor=\"let paragraph of paragraph.children\">\r\n          <h4> {{ paragraph?.title }}</h4>\r\n          <i class=\"fitted icon code\"></i>\r\n          <a class=\"anchor\" ></a>\r\n          <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n            {{paragraph?.description}}\r\n          </p>\r\n          <div class=\"ui existing segment\">\r\n            <pre >{{paragraph.code}}</pre>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </mat-tab>\r\n  <mat-tab label=\"Tab 3\" disabled>\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>block</mat-icon>\r\n    </ng-template>\r\n    No content\r\n  </mat-tab>\r\n</mat-tab-group>\r\n"
+module.exports = "<mat-tab-group>\r\n  <mat-tab label=\"Tab 1\">\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>subject</mat-icon>\r\n    </ng-template>\r\n    <div class=\"topic-main-wrapper\" fxLayout=\"row\" fxFlexAlign=\"start start\">\r\n      <div fxFlex=\"85%\" class=\"topic-content.wrapper\">\r\n        <h2 class=\"ui dividing header\" fxLayout  fxLayoutAlign=\"space-between center\">\r\n          <span>\r\n            {{ topic?.name }}\r\n          </span>\r\n          <span class=\"ui meta\">\r\n          <div style=\"display: flex\">\r\n            <mat-icon>alarm</mat-icon>&nbsp; Created: {{ topic?.basicTime.created | date }}\r\n          </div>\r\n          <div style=\"display: flex\">\r\n            <mat-icon>alarm</mat-icon>&nbsp; Updated: {{ topic?.basicTime.created | date }}\r\n          </div>\r\n         </span>\r\n        </h2>\r\n        <div class=\"topic-section\">\r\n          <h4>Overall description</h4>\r\n          <p>\r\n            {{topic?.description}}\r\n          </p>\r\n        </div>\r\n        <app-paragraph *ngFor=\"let paragraph of topic?.paragraphs\" [paragraph]=\"paragraph\" ></app-paragraph>\r\n      </div>\r\n      <div class=\"right-nav\" fxFlex=\"15%\" fxHide.lt-md=\"true\" >\r\n        <div class=\"ui sticky\">\r\n          <h4 class=\"ui header\" style=\"margin-bottom: 0px\" *ngFor=\"let paragraph of topic?.paragraphs\">\r\n            {{paragraph.title}}\r\n          </h4>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </mat-tab>\r\n\r\n  <!--not implement-->\r\n  <mat-tab label=\"Tab 2\">\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>code</mat-icon>\r\n    </ng-template>\r\n    <div class=\"demo-tab-content\">\r\n      <div class=\"no example mt-5\" *ngFor=\"let paragraph of topic?.paragraphs\">\r\n        <h4> {{ paragraph?.title }}</h4>\r\n        <i class=\"fitted icon code\"></i>\r\n        <a class=\"anchor\" ></a>\r\n        <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n          {{paragraph?.description}}\r\n        </p>\r\n        <div class=\"ui existing segment\">\r\n          <pre >{{paragraph.code}}</pre>\r\n        </div>\r\n        <div class=\"no example mt-5\" *ngFor=\"let paragraph of paragraph.children\">\r\n          <h4> {{ paragraph?.title }}</h4>\r\n          <i class=\"fitted icon code\"></i>\r\n          <a class=\"anchor\" ></a>\r\n          <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n            {{paragraph?.description}}\r\n          </p>\r\n          <div class=\"ui existing segment\">\r\n            <pre >{{paragraph.code}}</pre>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </mat-tab>\r\n  <mat-tab label=\"Tab 3\" disabled>\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>block</mat-icon>\r\n    </ng-template>\r\n    No content\r\n  </mat-tab>\r\n</mat-tab-group>\r\n"
 
 /***/ }),
 
@@ -614,7 +692,9 @@ var TopicComponent = /** @class */ (function () {
                 _this.topic = _topic;
                 _this.topicRepository
                     .getParagraphsById(_this.topic.id)
-                    .subscribe(function (_paragraphs) { _this.topic.paragraphs = _paragraphs; console.log(_this.topic.paragraphs); });
+                    .subscribe(function (_paragraphs) {
+                    return _this.topic.paragraphs = _paragraphs;
+                });
             });
         });
     };
@@ -825,21 +905,72 @@ var TopicRepository = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/shared/main-bootstrap/header/header.component.css":
+/***/ "./src/app/shared/footer/footer.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "\r\nmat-toolbar {\r\n  margin: 55px 0 0 0;\r\n  padding: 15px;\r\n}\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/footer/footer.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar\r\n  fxLayout\r\n  fxLayoutAlign=\"space-between center\"\r\n  color=\"primary\">\r\n  <div class=\"images\" >\r\n    <i class=\"ui icon large css3 alternate\"></i> {{ thisYear }}\r\n  </div>\r\n  <div class=\"ui horizontal inverted small divided link list\">\r\n    <a class=\"item\" href=\"#\">Site Map</a>\r\n    <a class=\"item\" href=\"#\">Contact Us</a>\r\n    <a class=\"item\" href=\"#\">Terms and Conditions</a>\r\n    <a class=\"item\" href=\"#\">Privacy Policy</a>\r\n  </div>\r\n</mat-toolbar>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/footer/footer.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FooterComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var FooterComponent = /** @class */ (function () {
+    function FooterComponent() {
+        this.thisYear = new Date().getFullYear();
+    }
+    FooterComponent.prototype.ngOnInit = function () {
+    };
+    FooterComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-footer',
+            template: __webpack_require__("./src/app/shared/footer/footer.component.html"),
+            styles: [__webpack_require__("./src/app/shared/footer/footer.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], FooterComponent);
+    return FooterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/header/header.component.css":
 /***/ (function(module, exports) {
 
 module.exports = "\r\nmat-toolbar {\r\n  -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;\r\n  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;\r\n  z-index: 3 !important;\r\n  margin: 0 !important;\r\n  background: #3f51b5!important;\r\n}\r\n\r\nmat-toolbar a {\r\n  -webkit-tap-highlight-color: transparent;\r\n  text-decoration: none;\r\n  color: white;\r\n}\r\n"
 
 /***/ }),
 
-/***/ "./src/app/shared/main-bootstrap/header/header.component.html":
+/***/ "./src/app/shared/header/header.component.html":
 /***/ (function(module, exports) {
 
 module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"15px\" color=\"primary\">\n  <div fxFlex=\"50%\">\n  <a mat-icon-button routerLink=\"/\">\n    <mat-icon>public</mat-icon>\n  </a>\n  <a mat-icon-button (click)=\"onSidenavToggle.emit()\">\n    <mat-icon>list</mat-icon>\n  </a>\n  <a mat-button\n     *ngFor=\"let section of sectionNames\"\n     [routerLink]=\"['/section', section]\">\n    {{ section }}\n  </a>\n  </div>\n  <div fxLayout=\"row-reverse\"\n       fxLayoutAlign=\"start\">\n  <a aria-label=\"GitHub Repository\" href=\"https://github.com/Siwoo-Kim\" mat-button=\"\" tabindex=\"0\" aria-disabled=\"false\">\n    <span class=\"mat-button-wrapper\">\n    <i class=\"ui icon large github\"></i>\n  </span><div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div><div class=\"mat-button-focus-overlay\"></div></a>\n  </div>\n</mat-toolbar>\n<app-locator ></app-locator>\n"
 
 /***/ }),
 
-/***/ "./src/app/shared/main-bootstrap/header/header.component.ts":
+/***/ "./src/app/shared/header/header.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -875,8 +1006,8 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-header',
-            template: __webpack_require__("./src/app/shared/main-bootstrap/header/header.component.html"),
-            styles: [__webpack_require__("./src/app/shared/main-bootstrap/header/header.component.css")]
+            template: __webpack_require__("./src/app/shared/header/header.component.html"),
+            styles: [__webpack_require__("./src/app/shared/header/header.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__["a" /* SectionRepository */]])
     ], HeaderComponent);
@@ -887,21 +1018,21 @@ var HeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/shared/main-bootstrap/locator/locator.component.css":
+/***/ "./src/app/shared/locator/locator.component.css":
 /***/ (function(module, exports) {
 
 module.exports = "\r\n.locator {\r\n  margin: 0;\r\n  padding: 0;\r\n  border: 0;\r\n  outline: 0;\r\n  padding-left: 15px;\r\n  color: #868686;\r\n  font-size: 100%;\r\n  vertical-align: baseline;\r\n  background-color: #eee;\r\n  border-bottom: 1px solid #ddd;\r\n  height: 50px;\r\n  line-height: 40px;\r\n  margin: 0 auto;\r\n  position: relative;\r\n  vertical-align: middle;\r\n}\r\n"
 
 /***/ }),
 
-/***/ "./src/app/shared/main-bootstrap/locator/locator.component.html":
+/***/ "./src/app/shared/locator/locator.component.html":
 /***/ (function(module, exports) {
 
 module.exports = "\n<mat-toolbar class=\"locator\" style=\"margin-top: 4.8em;\" color=\"primary\">\n  <div class=\"ui extra\">\n    Home > Something\n  </div>\n</mat-toolbar>\n"
 
 /***/ }),
 
-/***/ "./src/app/shared/main-bootstrap/locator/locator.component.ts":
+/***/ "./src/app/shared/locator/locator.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -925,8 +1056,8 @@ var LocatorComponent = /** @class */ (function () {
     LocatorComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-locator',
-            template: __webpack_require__("./src/app/shared/main-bootstrap/locator/locator.component.html"),
-            styles: [__webpack_require__("./src/app/shared/main-bootstrap/locator/locator.component.css")]
+            template: __webpack_require__("./src/app/shared/locator/locator.component.html"),
+            styles: [__webpack_require__("./src/app/shared/locator/locator.component.css")]
         }),
         __metadata("design:paramtypes", [])
     ], LocatorComponent);
@@ -947,7 +1078,7 @@ module.exports = "\r\n.main-content-wrapper {\r\n  background: #ffffff!important
 /***/ "./src/app/shared/main-bootstrap/main-bootstrap.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container-fluid\"\n     fxLayout=\"column\"\n     fxLayoutGap=\"30px\"\n     fxLayoutAlign=\"start center\">\n  <div fxFlex class=\"main-content-wrapper\" >\n    <div class=\"position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center\">\n      <div class=\"col-md-5 p-lg-5 mx-auto my-5\">\n        <h1 class=\"display-4 font-weight-normal\">Springular</h1>\n        <p class=\"lead font-weight-normal\">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.</p>\n        <a class=\"btn btn-outline-secondary\"\n           color=\"primary\"\n           mat-raised-button\n           href=\"#\">Coming soon</a>\n      </div>\n      <div class=\"product-device box-shadow d-none d-md-block\"></div>\n      <div class=\"product-device product-device-2 box-shadow d-none d-md-block\"></div>\n    </div>\n  </div>\n  <div fxFlex fxLayout=\"row\" class=\"d-md-flex flex-md-equal mb-5 mt-3 w-100 my-md-3 pl-md-3\">\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper bg-green mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 py-3\">\n        <h2 class=\"display-5\">Spring Boot</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image1.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 p-3\">\n        <h2 class=\"display-5\">Angular</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image2.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n  </div>\n  <div class=\"ui alternate stripe vertical segment mt-5\" style=\"background-color: #F2F3F5;padding: 10em 0px;border-radius: 0em;margin: 0em;\">\n    <div class=\"ui stackable center aligned grid container\">\n      <div class=\"fourteen wide column\">\n        <h1 class=\"ui icon header\">\n          <img class=\"ui inline icon image\" src=\"/assets/img/main/image3.png\">\n          Go and Study with the references\n        </h1>\n        <div class=\"ui stackable center aligned vertically padded grid\">\n          <div class=\"eight wide column\">\n            <h3 class=\"ui header\">Best Learning</h3>\n            <p>I personally recommend to you to be better programmer</p>\n            <a mat-raised-button >\n              <i class=\"right chevron icon\" style=\"display: contents\"></i>\n              Get Started Now\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "\n<div class=\"container-fluid\"\n     fxLayout=\"column\"\n     fxLayoutGap=\"30px\"\n     fxLayoutAlign=\"start center\">\n  <div fxFlex class=\"main-content-wrapper\" >\n    <div class=\"position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center\">\n      <div class=\"col-md-5 p-lg-5 mx-auto my-5\">\n        <h1 class=\"display-4 font-weight-normal\">Springular</h1>\n        <p class=\"lead font-weight-normal\">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.</p>\n        <a class=\"btn btn-outline-secondary\"\n           color=\"primary\"\n           mat-raised-button\n           href=\"#\">Coming soon</a>\n      </div>\n      <div class=\"product-device box-shadow d-none d-md-block\"></div>\n      <div class=\"product-device product-device-2 box-shadow d-none d-md-block\"></div>\n    </div>\n  </div>\n  <div fxFlex\n       fxLayout=\"row\"\n       fxFlexAlign=\"center center\"\n       fxLayout.lt-sm=\"column\"\n       class=\"d-md-flex flex-md-equal mb-5 mt-3 w-100 my-md-3 pl-md-3\">\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper bg-green mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 py-3\">\n        <h2 class=\"display-5\">Spring Boot</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image1.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 p-3\">\n        <h2 class=\"display-5\">Angular</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image2.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n  </div>\n  <div class=\"ui alternate stripe vertical segment mt-5\" style=\"background-color: #F2F3F5;padding: 10em 0px;border-radius: 0em;margin: 0em;\">\n    <div class=\"ui stackable center aligned grid container\">\n      <div class=\"fourteen wide column\">\n        <h1 class=\"ui icon header\">\n          <img class=\"ui inline icon image\" src=\"/assets/img/main/image3.png\">\n          Go and Study with the references\n        </h1>\n        <div class=\"ui stackable center aligned vertically padded grid\">\n          <div class=\"eight wide column\">\n            <h3 class=\"ui header\">Best Learning</h3>\n            <p>I personally recommend to you to be better programmer</p>\n            <a mat-raised-button >\n              <i class=\"right chevron icon\" style=\"display: contents\"></i>\n              Get Started Now\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1052,14 +1183,16 @@ var MaterialModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__main_bootstrap_main_bootstrap_component__ = __webpack_require__("./src/app/shared/main-bootstrap/main-bootstrap.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__main_bootstrap_header_header_component__ = __webpack_require__("./src/app/shared/main-bootstrap/header/header.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__main_bootstrap_locator_locator_component__ = __webpack_require__("./src/app/shared/main-bootstrap/locator/locator.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__header_header_component__ = __webpack_require__("./src/app/shared/header/header.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__locator_locator_component__ = __webpack_require__("./src/app/shared/locator/locator.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__footer_footer_component__ = __webpack_require__("./src/app/shared/footer/footer.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1079,13 +1212,15 @@ var SharedModule = /** @class */ (function () {
             ],
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_4__main_bootstrap_main_bootstrap_component__["a" /* MainBootstrapComponent */],
-                __WEBPACK_IMPORTED_MODULE_5__main_bootstrap_header_header_component__["a" /* HeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__main_bootstrap_locator_locator_component__["a" /* LocatorComponent */],
+                __WEBPACK_IMPORTED_MODULE_5__header_header_component__["a" /* HeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_6__locator_locator_component__["a" /* LocatorComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__footer_footer_component__["a" /* FooterComponent */],
             ],
             exports: [
                 __WEBPACK_IMPORTED_MODULE_0__material_module__["a" /* MaterialModule */],
-                __WEBPACK_IMPORTED_MODULE_5__main_bootstrap_header_header_component__["a" /* HeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__main_bootstrap_locator_locator_component__["a" /* LocatorComponent */],
+                __WEBPACK_IMPORTED_MODULE_5__header_header_component__["a" /* HeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_6__locator_locator_component__["a" /* LocatorComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__footer_footer_component__["a" /* FooterComponent */],
             ]
         })
     ], SharedModule);
