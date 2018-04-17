@@ -1,18 +1,14 @@
 package com.siwoo.sprigular.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
+import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter @ToString(exclude = "topics")
 @Entity @Table(name="tbl_section")
-@EqualsAndHashCode(of={"name","id"})
+@EqualsAndHashCode(of={"name"})
 public class Section {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +20,9 @@ public class Section {
 
     @Column(name =" section_description", length = 500)
     private String description;
+
+    @Transient
+    private double rating;
 
     @Column(name =" section_basic_time")
     private BasicTime basicTime;

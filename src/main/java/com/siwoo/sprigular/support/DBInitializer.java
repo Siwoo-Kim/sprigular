@@ -1,5 +1,6 @@
 package com.siwoo.sprigular.support;
 
+import com.siwoo.sprigular.repository.BookRepository;
 import com.siwoo.sprigular.repository.SectionRepository;
 import com.siwoo.sprigular.repository.TopicRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +20,14 @@ public class DBInitializer implements CommandLineRunner {
     SectionRepository sectionRepository;
     @Autowired
     TopicRepository topicRepository;
+    @Autowired
+    BookRepository bookRepository;
 
     @Override
     public void run(String... args) throws Exception {
         sectionRepository.saveAll(FixtureFactory.sections());
         topicRepository.saveAll(FixtureFactory.angularTopics(sectionRepository.findByName("Angular")));
         log.warn(topicRepository.findAll() + "");
+        bookRepository.saveAll(FixtureFactory.books());
     }
 }

@@ -3,8 +3,11 @@ Domain
 
 Book[reference]
     title
-    name
-
+    author
+    description
+    referenceUrl: URL
+    githubUrl: URL
+    rating: int
 
 
 
@@ -22,24 +25,17 @@ Section
 
 Topic
     Name
+    BasicTime
+    Description
+    Rating: number
+    Difficulty: number
     section :Section
-    Document :List<Document>
-    BasicTime
-    Description
+    Paragraph :List<Paragraph>
 
-Document
-    Name
-    BasicTime
-    Description
-    Chapter :List
-    GitHubUrl
-
-
-Chapter
+Paragraph
     Title
-    Index
-    Content
-    Code: List<String>
-
-
+    Description
+    Code: String{<Pre>}
+    parent: Paragraph
+    children: List<Paragraph>
 

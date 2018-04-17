@@ -168,7 +168,6 @@ var Section = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_main_bootstrap_main_bootstrap_component__ = __webpack_require__("./src/app/shared/main-bootstrap/main-bootstrap.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__section_section_bootstrap_component__ = __webpack_require__("./src/app/section/section-bootstrap.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -178,10 +177,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var routes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_2__shared_main_bootstrap_main_bootstrap_component__["a" /* MainBootstrapComponent */] },
-    { path: 'section/:sectionName', component: __WEBPACK_IMPORTED_MODULE_3__section_section_bootstrap_component__["a" /* SectionBootstrapComponent */] },
 ];
 var RoutingModule = /** @class */ (function () {
     function RoutingModule() {
@@ -202,14 +199,14 @@ var RoutingModule = /** @class */ (function () {
 /***/ "./src/app/section/section-bootstrap.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.section-bootstrap-wrapper{\r\n  margin-top: 15px;\r\n  min-height: 700px;\r\n}\r\n\r\n.section-bootstrap-content {\r\n  padding: 35px;\r\n  margin-left: 15px!important;\r\n}\r\n\r\n.ui.meta {\r\n  display: inline; font-size: 0.5em;color: rgba(0,0,0,.4);margin-right: .3em;\r\n}\r\n\r\n.no.example i {\r\n  display: inline;\r\n}\r\n\r\n.no.example p {\r\n  padding: 15px;\r\n}\r\n\r\n.list-topic-btn-wrapper button {\r\n  font-size: 0.9em !important;\r\n  font-weight: bold !important;\r\n  width: 250px !important;\r\n  margin: 10px !important;\r\n}\r\n"
+module.exports = "\r\n.section-bootstrap-wrapper{\r\n  margin-top: 15px;\r\n  min-height: 700px;\r\n}\r\n\r\n.section-bootstrap-content {\r\n  padding: 35px;\r\n  margin-left: 15px!important;\r\n}\r\n\r\n"
 
 /***/ }),
 
 /***/ "./src/app/section/section-bootstrap.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<div class=\"container-fluid section-bootstrap-wrapper\" fxLayout=\"row\">\n  <app-section-sidenav [section]=\"section\" [topicNames]=\"topicNames\" fxFlex=\"0 1 230px\"></app-section-sidenav>\n  <div class=\"main ui intro container ml-2 section-bootstrap-content\" >\n    <h2 class=\"ui dividing header\" fxLayout  fxLayoutAlign=\"space-between center\">\n      <span>{{section?.name}}\n        <a class=\"anchor\" id=\"{{section?.id}}\"></a>\n      </span>\n      <span class=\"ui meta\">\n        <div style=\"display: flex\">\n          <mat-icon>alarm</mat-icon>&nbsp; Created: {{ section.basicTime.created | date }}\n        </div>\n        <div style=\"display: flex\">\n          <mat-icon>alarm</mat-icon>&nbsp; Updated: {{ section.basicTime.created | date }}\n        </div>\n      </span>\n    </h2>\n    <div class=\"no example\">\n      <h4>Overall description</h4>\n      <i class=\"fitted icon code\"></i>\n      <a class=\"anchor\" ></a>\n      <p>\n        {{section?.description}}\n      </p>\n      <h4>Related Topics:</h4>\n      <app-section-topiclist [section]=\"section\" [topicNames]=\"topicNames\"></app-section-topiclist>\n    </div>\n\n    <div class=\"container-fluid p-5 mt-5 list-topic-btn-wrapper\" fxLayout=\"row wrap\"  fxLayoutAlign=\"start start\">\n      <button *ngFor=\"let topicName of topicNames\"\n              mat-raised-button>\n        {{ topicName}}\n      </button>\n    </div>\n  </div>\n</div>\n"
+module.exports = "\n\n<div class=\"container-fluid section-bootstrap-wrapper\" fxLayout=\"row\">\n  <app-section-sidenav [section]=\"section\" [topicNames]=\"topicNames\" fxFlex=\"0 1 230px\"></app-section-sidenav>\n  <div class=\"main ui intro container ml-2 section-bootstrap-content\" >\n    <router-outlet></router-outlet>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -272,6 +269,124 @@ var SectionBootstrapComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/section/section-main/section-main.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "\r\n.ui.meta {\r\n  display: inline; font-size: 0.5em;color: rgba(0,0,0,.4);margin-right: .3em;\r\n}\r\n\r\n.no.example i {\r\n  display: inline;\r\n}\r\n\r\n.no.example p {\r\n  padding: 15px;\r\n}\r\n\r\n.list-topic-btn-wrapper button {\r\n  font-size: 0.9em !important;\r\n  font-weight: bold !important;\r\n  width: 250px !important;\r\n  margin: 10px !important;\r\n}\r\n"
+
+/***/ }),
+
+/***/ "./src/app/section/section-main/section-main.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class=\"ui dividing header\" fxLayout  fxLayoutAlign=\"space-between center\">\n      <span>{{section?.name}}\n        <a class=\"anchor\" id=\"{{section?.id}}\"></a>\n      </span>\n  <span class=\"ui meta\">\n    <div style=\"display: flex\">\n      <mat-icon>alarm</mat-icon>&nbsp; Created: {{ section?.basicTime.created | date }}\n    </div>\n    <div style=\"display: flex\">\n      <mat-icon>alarm</mat-icon>&nbsp; Updated: {{ section?.basicTime.created | date }}\n    </div>\n  </span>\n</h2>\n<div class=\"no example\">\n  <h4>Overall description</h4>\n  <i class=\"fitted icon code\"></i>\n  <a class=\"anchor\" ></a>\n  <p>\n    {{section?.description}}\n  </p>\n  <h4>Related Topics:</h4>\n  <app-section-topiclist [section]=\"section\" [topicNames]=\"topicNames\"></app-section-topiclist>\n</div>\n\n<div class=\"container-fluid p-5 mt-5 list-topic-btn-wrapper\" fxLayout=\"row wrap\"  fxLayoutAlign=\"start start\">\n  <button *ngFor=\"let topicName of topicNames\" mat-raised-button>\n    {{ topicName}}\n  </button>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/section/section-main/section-main.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SectionMainComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__ = __webpack_require__("./src/app/service/section-repository.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_topic_repository_service__ = __webpack_require__("./src/app/service/topic-repository.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var SectionMainComponent = /** @class */ (function () {
+    function SectionMainComponent(route, sectionRepository, topicRepository) {
+        this.route = route;
+        this.sectionRepository = sectionRepository;
+        this.topicRepository = topicRepository;
+    }
+    SectionMainComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            var sectionName = params['sectionName'];
+            _this.sectionRepository
+                .byName(sectionName)
+                .subscribe(function (_section) {
+                _this.section = _section;
+                _this.topicRepository
+                    .getNamesBySectionName(_this.section.name)
+                    .subscribe(function (_topicNames) { return _this.topicNames = _topicNames; });
+            });
+        });
+    };
+    SectionMainComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-section-main',
+            template: __webpack_require__("./src/app/section/section-main/section-main.component.html"),
+            styles: [__webpack_require__("./src/app/section/section-main/section-main.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
+            __WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__["a" /* SectionRepository */],
+            __WEBPACK_IMPORTED_MODULE_3__service_topic_repository_service__["a" /* TopicRepository */]])
+    ], SectionMainComponent);
+    return SectionMainComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/section/section-routing.module.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SectionRoutingModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__section_bootstrap_component__ = __webpack_require__("./src/app/section/section-bootstrap.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__section_main_section_main_component__ = __webpack_require__("./src/app/section/section-main/section-main.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__topic_topic_component__ = __webpack_require__("./src/app/section/topic/topic.component.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var routes = [
+    { path: 'section/:sectionName', component: __WEBPACK_IMPORTED_MODULE_2__section_bootstrap_component__["a" /* SectionBootstrapComponent */],
+        children: [
+            { path: '', component: __WEBPACK_IMPORTED_MODULE_3__section_main_section_main_component__["a" /* SectionMainComponent */], pathMatch: 'full' },
+            { path: ':topicName', component: __WEBPACK_IMPORTED_MODULE_4__topic_topic_component__["a" /* TopicComponent */] },
+        ]
+    },
+];
+var SectionRoutingModule = /** @class */ (function () {
+    function SectionRoutingModule() {
+    }
+    SectionRoutingModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
+            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */].forChild(routes)],
+            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */]],
+        })
+    ], SectionRoutingModule);
+    return SectionRoutingModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/section/section-sidenav/section-sidenav.component.css":
 /***/ (function(module, exports) {
 
@@ -282,7 +397,7 @@ module.exports = "\r\nmat-panel-title {\r\n  color: #9e9e9e;\r\n  font-size: 13p
 /***/ "./src/app/section/section-sidenav/section-sidenav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-list fxLayout=\"column\"  fxFill fxLayoutAlign=\"start\">\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title >\n        {{ section?.name }}\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-list  >\n      <a mat-list-item\n         fxFlexAlign=\"center\"\n         *ngFor=\"let topicName of topicNames\">\n        <p> {{ topicName }} </p>\n        <mat-divider [inset]=\"true\"></mat-divider>\n      </a>\n    </mat-list>\n  </mat-expansion-panel>\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title>\n        Extra\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-list>\n    </mat-list>\n  </mat-expansion-panel>\n</mat-list>\n\n"
+module.exports = "<mat-list fxLayout=\"column\"  fxFill fxLayoutAlign=\"start\">\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title >\n        {{ section?.name }}\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-list  >\n      <a mat-list-item\n         fxFlexAlign=\"center\"\n         *ngFor=\"let topicName of topicNames\"\n         [routerLink]=\"['/section',section.name,topicName]\">\n        <p> {{ topicName }} </p>\n        <mat-divider [inset]=\"true\"></mat-divider>\n      </a>\n    </mat-list>\n  </mat-expansion-panel>\n  <mat-expansion-panel mat-list-item>\n    <mat-expansion-panel-header>\n      <mat-panel-title>\n        Extra\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <mat-list>\n    </mat-list>\n  </mat-expansion-panel>\n</mat-list>\n\n"
 
 /***/ }),
 
@@ -340,7 +455,7 @@ module.exports = "\r\n.item {\r\n  display: -webkit-inline-box !important;\r\n  
 /***/ "./src/app/section/section-topiclist/section-topiclist.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ui existing segment\">\n  <div class=\"code\">\n    <div class=\"ui list\">\n      <div class=\"item\">\n        <mat-icon>toc</mat-icon >\n        <div class=\"content\">\n          <div class=\"header\">\n            {{section.name}}\n          </div>\n          <div class=\"description\">\n            Section Root\n          </div>\n          <div class=\"list\"\n               *ngFor=\"let topicName of topicNames\">\n            <div class=\"item\">\n              <mat-icon>description</mat-icon >\n              <div class=\"content\">\n                <div class=\"header\">\n                  <a href=\"\">{{ topicName}}</a>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"ui existing segment\">\n  <div class=\"code\">\n    <div class=\"ui list\">\n      <div class=\"item\">\n        <mat-icon>toc</mat-icon >\n        <div class=\"content\">\n          <div class=\"header\">\n            {{section?.name}}\n          </div>\n          <div class=\"description\">\n            Section Root\n          </div>\n          <div class=\"list\"\n               *ngFor=\"let topicName of topicNames\">\n            <div class=\"item\">\n              <mat-icon>description</mat-icon >\n              <div class=\"content\">\n                <div class=\"header\">\n                  <a [routerLink]=\"['/section',section.name,topicName]\">{{ topicName}}</a>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -403,12 +518,18 @@ var SectionTopiclistComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__section_sidenav_section_sidenav_component__ = __webpack_require__("./src/app/section/section-sidenav/section-sidenav.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__section_topiclist_section_topiclist_component__ = __webpack_require__("./src/app/section/section-topiclist/section-topiclist.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__section_main_section_main_component__ = __webpack_require__("./src/app/section/section-main/section-main.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__topic_topic_component__ = __webpack_require__("./src/app/section/topic/topic.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__section_routing_module__ = __webpack_require__("./src/app/section/section-routing.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -427,11 +548,14 @@ var SectionModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__shared_shared_module__["a" /* SharedModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* RouterModule */],
                 __WEBPACK_IMPORTED_MODULE_3__service_service_module__["a" /* ServiceModule */],
+                __WEBPACK_IMPORTED_MODULE_10__section_routing_module__["a" /* SectionRoutingModule */],
             ],
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_4__section_bootstrap_component__["a" /* SectionBootstrapComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__section_sidenav_section_sidenav_component__["a" /* SectionSidenavComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__section_topiclist_section_topiclist_component__["a" /* SectionTopiclistComponent */]
+                __WEBPACK_IMPORTED_MODULE_7__section_topiclist_section_topiclist_component__["a" /* SectionTopiclistComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__section_main_section_main_component__["a" /* SectionMainComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__topic_topic_component__["a" /* TopicComponent */]
             ]
         })
     ], SectionModule);
@@ -442,13 +566,82 @@ var SectionModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/section/topic/topic.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "\r\n.ui.meta {\r\n  display: inline; font-size: 0.5em;color: rgba(0,0,0,.4);margin-right: .3em;\r\n}\r\n\r\n.no.example i {\r\n  display: inline;\r\n}\r\n\r\n.no.example p {\r\n  padding: 15px;\r\n}\r\n\r\n.list-topic-btn-wrapper button {\r\n  font-size: 0.9em !important;\r\n  font-weight: bold !important;\r\n  width: 250px !important;\r\n  margin: 10px !important;\r\n}\r\n"
+
+/***/ }),
+
+/***/ "./src/app/section/topic/topic.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<mat-tab-group>\r\n  <mat-tab label=\"Tab 1\">\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>subject</mat-icon>\r\n    </ng-template>\r\n    <div class=\"demo-tab-content\"\r\n         fxLayout=\"row\"\r\n         fxFlexAlign=\"start start\"\r\n         style=\"margin-top: 15px;     font-size: 15px;line-height: 27px;font-weight: 500;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n      <div fxFlex=\"85%\" class=\"main-content\">\r\n        <h2 class=\"ui dividing header\" fxLayout  fxLayoutAlign=\"space-between center\">\r\n          <span>\r\n            {{ topic?.name }}\r\n            <a class=\"anchor\" id=\"{{section?.id}}\"></a>\r\n          </span>\r\n            <span class=\"ui meta\">\r\n            <div style=\"display: flex\">\r\n              <mat-icon>alarm</mat-icon>&nbsp; Created: {{ topic?.basicTime.created | date }}\r\n            </div>\r\n            <div style=\"display: flex\">\r\n              <mat-icon>alarm</mat-icon>&nbsp; Updated: {{ topic?.basicTime.created | date }}\r\n            </div>\r\n           </span>\r\n        </h2>\r\n        <div class=\"no example\">\r\n          <h4>Overall description</h4>\r\n          <i class=\"fitted icon code\"></i>\r\n          <a class=\"anchor\" ></a>\r\n          <p style=\"font-size: 16px;\r\n      line-height: 28px;    font-weight: 400;\r\n      font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n            {{topic?.description}}\r\n          </p>\r\n        </div>\r\n\r\n        <div class=\"no example mt-5\" *ngFor=\"let paragraph of topic?.paragraphs\">\r\n          <h4> {{ paragraph?.title }}</h4>\r\n          <i class=\"fitted icon code\"></i>\r\n          <a class=\"anchor\" ></a>\r\n          <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n            {{paragraph?.description}}\r\n          </p>\r\n          <div class=\"ui existing segment\">\r\n            <code>\r\n              {{paragraph?.code}}\r\n            </code>\r\n          </div>\r\n          <div class=\"no example mt-5\" *ngFor=\"let paragraph of paragraph.children\">\r\n            <h4> {{ paragraph?.title }}</h4>\r\n            <i class=\"fitted icon code\"></i>\r\n            <a class=\"anchor\" ></a>\r\n            <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n              {{paragraph?.description}}\r\n            </p>\r\n            <div class=\"ui existing segment\">\r\n              <code>\r\n                {{paragraph?.code}}\r\n              </code>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"right-nav\" style=\"margin-left: 15px;\" fxFlex=\"15%\">\r\n        <div class=\"ui sticky\" style=\"    color: rgba(0,0,0,.54);padding-left: 15px;border-left: 2px solid rgba(0,0,0,.54);\">\r\n          <h4 class=\"ui header\" style=\"margin-bottom: 0px\" *ngFor=\"let paragraph of topic.paragraphs\">\r\n            {{paragraph.title}}\r\n          </h4>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </mat-tab>\r\n  <mat-tab label=\"Tab 2\">\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>code</mat-icon>\r\n    </ng-template>\r\n    <div class=\"demo-tab-content\">\r\n      <div class=\"no example mt-5\" *ngFor=\"let paragraph of topic?.paragraphs\">\r\n        <h4> {{ paragraph?.title }}</h4>\r\n        <i class=\"fitted icon code\"></i>\r\n        <a class=\"anchor\" ></a>\r\n        <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n          {{paragraph?.description}}\r\n        </p>\r\n        <div class=\"ui existing segment\">\r\n          <code>\r\n            {{paragraph?.code}}\r\n          </code>\r\n        </div>\r\n        <div class=\"no example mt-5\" *ngFor=\"let paragraph of paragraph.children\">\r\n          <h4> {{ paragraph?.title }}</h4>\r\n          <i class=\"fitted icon code\"></i>\r\n          <a class=\"anchor\" ></a>\r\n          <p style=\"font-size: 16px;line-height: 28px;    font-weight: 400;font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;\">\r\n            {{paragraph?.description}}\r\n          </p>\r\n          <div class=\"ui existing segment\">\r\n            <code>\r\n              {{paragraph?.code}}\r\n            </code>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </mat-tab>\r\n  <mat-tab label=\"Tab 3\" disabled>\r\n    <ng-template mat-tab-label>\r\n      <mat-icon>block</mat-icon>\r\n    </ng-template>\r\n    No content\r\n  </mat-tab>\r\n</mat-tab-group>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/section/topic/topic.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopicComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_topic_repository_service__ = __webpack_require__("./src/app/service/topic-repository.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var TopicComponent = /** @class */ (function () {
+    function TopicComponent(topicRepository, route) {
+        this.topicRepository = topicRepository;
+        this.route = route;
+    }
+    TopicComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.topicName = params['topicName'];
+            _this.topicRepository.byName(_this.topicName)
+                .subscribe(function (_topic) {
+                _this.topic = _topic;
+                _this.topicRepository
+                    .getParagraphsById(_this.topic.id)
+                    .subscribe(function (_paragraphs) { _this.topic.paragraphs = _paragraphs; console.log(_this.topic.paragraphs); });
+            });
+        });
+    };
+    TopicComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-topic',
+            template: __webpack_require__("./src/app/section/topic/topic.component.html"),
+            styles: [__webpack_require__("./src/app/section/topic/topic.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_topic_repository_service__["a" /* TopicRepository */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]])
+    ], TopicComponent);
+    return TopicComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/service/rest-datasource.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return QUERY_REQUEST_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QUERY_BY_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return RestDatasource; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return QUERY_REQUEST_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return QUERY_BY_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QUERY_BY_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RestDatasource; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_tokens__ = __webpack_require__("./src/app/app.tokens.ts");
@@ -471,6 +664,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 var QUERY_REQUEST_NAME = "?request=name";
 var QUERY_BY_NAME = "?by=name";
+var QUERY_BY_ID = "?by=id";
 var RestDatasource = /** @class */ (function () {
     function RestDatasource(http, backendUrl) {
         this.http = http;
@@ -528,14 +722,14 @@ var SectionRepository = /** @class */ (function () {
         this.sectionUrl = 'section';
     }
     SectionRepository.prototype.getNames = function () {
-        return this.dataSource.get(this.sectionUrl + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["b" /* QUERY_REQUEST_NAME */]);
+        return this.dataSource.get(this.sectionUrl + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* QUERY_REQUEST_NAME */]);
     };
     SectionRepository.prototype.byName = function (name) {
-        return this.dataSource.get(this.sectionUrl + "/" + name + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["a" /* QUERY_BY_NAME */]);
+        return this.dataSource.get(this.sectionUrl + "/" + name + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["b" /* QUERY_BY_NAME */]);
     };
     SectionRepository = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* RestDatasource */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* RestDatasource */]])
     ], SectionRepository);
     return SectionRepository;
 }());
@@ -574,7 +768,7 @@ var ServiceModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* RestDatasource */],
+                __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* RestDatasource */],
                 __WEBPACK_IMPORTED_MODULE_2__section_repository_service__["a" /* SectionRepository */],
                 __WEBPACK_IMPORTED_MODULE_4__topic_repository_service__["a" /* TopicRepository */],
             ]
@@ -608,14 +802,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var TopicRepository = /** @class */ (function () {
     function TopicRepository(dataSource) {
         this.dataSource = dataSource;
-        this.sectionUrl = 'topic';
+        this.topicUrl = 'topic';
+        this.paragraphUrl = 'paragraph';
     }
     TopicRepository.prototype.getNamesBySectionName = function (sectionName) {
-        return this.dataSource.get(this.sectionUrl + "/category/" + sectionName + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["b" /* QUERY_REQUEST_NAME */]);
+        return this.dataSource.get(this.topicUrl + "/category/" + sectionName + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* QUERY_REQUEST_NAME */]);
+    };
+    TopicRepository.prototype.byName = function (topicName) {
+        return this.dataSource.get(this.topicUrl + "/" + topicName + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["b" /* QUERY_BY_NAME */]);
+    };
+    TopicRepository.prototype.getParagraphsById = function (topicId) {
+        return this.dataSource.get(this.paragraphUrl + "/" + topicId + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["a" /* QUERY_BY_ID */]);
     };
     TopicRepository = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* RestDatasource */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* RestDatasource */]])
     ], TopicRepository);
     return TopicRepository;
 }());

@@ -11,4 +11,8 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
 
     @Query("select distinct t.name from Topic t where upper(t.section.name) = upper(:name)")
     List<String> findNamesBySectionName(@Param("name") String name);
+
+    @Query("select t from Topic t where upper(t.name) = upper(:name)")
+    Topic findByName(@Param("name") String name);
+
 }
