@@ -714,14 +714,106 @@ var TopicComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/service/locale-resolver.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocaleResolver; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__ = __webpack_require__("./src/app/service/rest-datasource.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__ = __webpack_require__("./node_modules/rxjs/_esm5/Subject.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var UPDATE_LOCALE = "?language=";
+var LocaleResolver = /** @class */ (function () {
+    function LocaleResolver(dataSource) {
+        var _this = this;
+        this.dataSource = dataSource;
+        this.localeUrl = 'locale';
+        this.localeChange$ = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["b" /* Subject */]();
+        dataSource.get(this.localeUrl)
+            .subscribe(function (locale) { return _this.currentLocale = locale; });
+    }
+    LocaleResolver.prototype.changeLocale = function (locale) {
+        var _this = this;
+        this.dataSource.get(this.localeUrl + UPDATE_LOCALE + locale)
+            .subscribe(function (_locale) {
+            _this.currentLocale = _locale;
+            _this.localeChange$.next(_locale);
+        });
+    };
+    LocaleResolver = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */]])
+    ], LocaleResolver);
+    return LocaleResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/message-resolver.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MessageResolver; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__ = __webpack_require__("./src/app/service/rest-datasource.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__locale_resolver_service__ = __webpack_require__("./src/app/service/locale-resolver.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var MessageResolver = /** @class */ (function () {
+    function MessageResolver(dataSource, localeResolver) {
+        this.dataSource = dataSource;
+        this.localeResolver = localeResolver;
+        this.messageUrl = 'message';
+    }
+    MessageResolver.prototype.getMessage = function (code) {
+        return this.dataSource
+            .get(this.messageUrl + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["a" /* QUERY_BY_CODE */] + "&code=" + code + '&locale=' + this.localeResolver.currentLocale);
+    };
+    MessageResolver = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */],
+            __WEBPACK_IMPORTED_MODULE_2__locale_resolver_service__["a" /* LocaleResolver */]])
+    ], MessageResolver);
+    return MessageResolver;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/service/rest-datasource.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return QUERY_REQUEST_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return QUERY_BY_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QUERY_BY_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RestDatasource; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return QUERY_REQUEST_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return QUERY_BY_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return QUERY_BY_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QUERY_BY_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return RestDatasource; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_tokens__ = __webpack_require__("./src/app/app.tokens.ts");
@@ -745,6 +837,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var QUERY_REQUEST_NAME = "?request=name";
 var QUERY_BY_NAME = "?by=name";
 var QUERY_BY_ID = "?by=id";
+var QUERY_BY_CODE = "?by=code";
 var RestDatasource = /** @class */ (function () {
     function RestDatasource(http, backendUrl) {
         this.http = http;
@@ -802,14 +895,14 @@ var SectionRepository = /** @class */ (function () {
         this.sectionUrl = 'section';
     }
     SectionRepository.prototype.getNames = function () {
-        return this.dataSource.get(this.sectionUrl + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* QUERY_REQUEST_NAME */]);
+        return this.dataSource.get(this.sectionUrl + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* QUERY_REQUEST_NAME */]);
     };
     SectionRepository.prototype.byName = function (name) {
-        return this.dataSource.get(this.sectionUrl + "/" + name + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["b" /* QUERY_BY_NAME */]);
+        return this.dataSource.get(this.sectionUrl + "/" + name + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* QUERY_BY_NAME */]);
     };
     SectionRepository = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* RestDatasource */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */]])
     ], SectionRepository);
     return SectionRepository;
 }());
@@ -828,12 +921,16 @@ var SectionRepository = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__section_repository_service__ = __webpack_require__("./src/app/service/section-repository.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__topic_repository_service__ = __webpack_require__("./src/app/service/topic-repository.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locale_resolver_service__ = __webpack_require__("./src/app/service/locale-resolver.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__message_resolver_service__ = __webpack_require__("./src/app/service/message-resolver.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -848,9 +945,11 @@ var ServiceModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* RestDatasource */],
+                __WEBPACK_IMPORTED_MODULE_5__locale_resolver_service__["a" /* LocaleResolver */],
+                __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */],
                 __WEBPACK_IMPORTED_MODULE_2__section_repository_service__["a" /* SectionRepository */],
                 __WEBPACK_IMPORTED_MODULE_4__topic_repository_service__["a" /* TopicRepository */],
+                __WEBPACK_IMPORTED_MODULE_6__message_resolver_service__["a" /* MessageResolver */],
             ]
         })
     ], ServiceModule);
@@ -886,17 +985,17 @@ var TopicRepository = /** @class */ (function () {
         this.paragraphUrl = 'paragraph';
     }
     TopicRepository.prototype.getNamesBySectionName = function (sectionName) {
-        return this.dataSource.get(this.topicUrl + "/category/" + sectionName + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* QUERY_REQUEST_NAME */]);
+        return this.dataSource.get(this.topicUrl + "/category/" + sectionName + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* QUERY_REQUEST_NAME */]);
     };
     TopicRepository.prototype.byName = function (topicName) {
-        return this.dataSource.get(this.topicUrl + "/" + topicName + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["b" /* QUERY_BY_NAME */]);
+        return this.dataSource.get(this.topicUrl + "/" + topicName + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["c" /* QUERY_BY_NAME */]);
     };
     TopicRepository.prototype.getParagraphsById = function (topicId) {
-        return this.dataSource.get(this.paragraphUrl + "/" + topicId + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["a" /* QUERY_BY_ID */]);
+        return this.dataSource.get(this.paragraphUrl + "/" + topicId + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["b" /* QUERY_BY_ID */]);
     };
     TopicRepository = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["d" /* RestDatasource */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */]])
     ], TopicRepository);
     return TopicRepository;
 }());
@@ -966,7 +1065,7 @@ module.exports = "\r\nmat-toolbar {\r\n  -webkit-box-shadow: 0 3px 5px -1px rgba
 /***/ "./src/app/shared/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"15px\" color=\"primary\">\n  <div fxFlex=\"50%\">\n  <a mat-icon-button routerLink=\"/\">\n    <mat-icon>public</mat-icon>\n  </a>\n  <a mat-icon-button (click)=\"onSidenavToggle.emit()\">\n    <mat-icon>list</mat-icon>\n  </a>\n  <a mat-button\n     *ngFor=\"let section of sectionNames\"\n     [routerLink]=\"['/section', section]\">\n    {{ section }}\n  </a>\n  </div>\n  <div fxLayout=\"row-reverse\"\n       fxLayoutAlign=\"start\">\n  <a aria-label=\"GitHub Repository\" href=\"https://github.com/Siwoo-Kim\" mat-button=\"\" tabindex=\"0\" aria-disabled=\"false\">\n    <span class=\"mat-button-wrapper\">\n    <i class=\"ui icon large github\"></i>\n  </span><div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div><div class=\"mat-button-focus-overlay\"></div></a>\n  </div>\n</mat-toolbar>\n<app-locator ></app-locator>\n"
+module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"15px\" color=\"primary\">\n  <div fxFlex=\"50%\">\n    <a mat-icon-button [matTooltip]=\"'Home'\" routerLink=\"/\">\n      <mat-icon>adb</mat-icon>\n    </a>\n    <a mat-icon-button (click)=\"onSidenavToggle.emit()\">\n      <mat-icon>list</mat-icon>\n    </a>\n    <a mat-button\n       *ngFor=\"let section of sectionNames;\"\n       [routerLink]=\"['/section', section]\">\n      {{ getLabelBySectionName(section) }}\n    </a>\n  </div>\n  <div fxLayout=\"row-reverse\"\n       style=\"width: 100%\"\n       fxLayoutAlign=\" center\"\n       fxLayoutGap=\"55px\">\n    <a aria-label=\"GitHub Repository\" href=\"https://github.com/Siwoo-Kim\"\n       mat-icon-button\n       tabindex=\"0\" aria-disabled=\"false\">\n      <span class=\"mat-button-wrapper\">\n      <i class=\"ui icon large github\"></i>\n      </span><div class=\"mat-button-ripple mat-ripple\" ></div><div class=\"mat-button-focus-overlay\"></div>\n    </a>\n    <mat-form-field style=\"width: 15px;padding-bottom: -5px;margin-right: 15px;\" >\n      <i class=\"world icon\"></i>\n      <mat-select  [formControl]=\"languageInput\">\n        <mat-option *ngFor=\"let language of ['ko','en']\"\n                    [value]=\"language\" >\n            {{ language }}\n        </mat-option>\n      </mat-select>\n      <mat-hint style=\"color: white;margin-left: 2px !important;\" > {{ localeResolver.currentLocale }}</mat-hint>\n    </mat-form-field>\n  </div>\n</mat-toolbar>\n<app-locator ></app-locator>\n"
 
 /***/ }),
 
@@ -977,6 +1076,9 @@ module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HeaderComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__ = __webpack_require__("./src/app/service/section-repository.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_locale_resolver_service__ = __webpack_require__("./src/app/service/locale-resolver.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_message_resolver_service__ = __webpack_require__("./src/app/service/message-resolver.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -988,16 +1090,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(sectionRepository) {
+    function HeaderComponent(sectionRepository, localeResolver, messageResolver) {
         this.sectionRepository = sectionRepository;
+        this.localeResolver = localeResolver;
+        this.messageResolver = messageResolver;
+        this.labels = [];
+        this.languageInput = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */]();
         this.onSidenavToggle = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.codePrefix = 'header.anchor.';
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.languageInput
+            .valueChanges
+            .subscribe(function (value) { return _this.localeResolver.changeLocale(value); });
         this.sectionRepository
             .getNames()
             .subscribe(function (_sectionNames) { return _this.sectionNames = _sectionNames; });
+        this.localeChangeSubscription = this.localeResolver.localeChange$.subscribe(function () { return _this.resolveLabels(); });
+        this.resolveLabels();
+    };
+    HeaderComponent.prototype.resolveLabels = function () {
+        var _this = this;
+        var codes = [];
+        codes.push(this.codePrefix + 'home');
+        codes.push(this.codePrefix + 'list');
+        codes.push(this.codePrefix + 'springboot');
+        codes.push(this.codePrefix + 'angular');
+        this.labels = [];
+        codes.forEach(function (_code) {
+            _this.messageResolver.getMessage(_code).subscribe(function (_label) {
+                _this.labels.push({ code: _code, label: _label });
+            });
+        });
+    };
+    HeaderComponent.prototype.ngOnDestroy = function () {
+        this.localeChangeSubscription.unsubscribe();
+    };
+    HeaderComponent.prototype.getLabelBySectionName = function (sectionName) {
+        return this.labels.find(function (label) {
+            if (sectionName.toLowerCase().startsWith('spring')) {
+                sectionName = 'springboot';
+            }
+            return label.code.indexOf(sectionName.toLowerCase()) > 0;
+        }).label;
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
@@ -1009,7 +1149,9 @@ var HeaderComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/shared/header/header.component.html"),
             styles: [__webpack_require__("./src/app/shared/header/header.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__["a" /* SectionRepository */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__["a" /* SectionRepository */],
+            __WEBPACK_IMPORTED_MODULE_2__service_locale_resolver_service__["a" /* LocaleResolver */],
+            __WEBPACK_IMPORTED_MODULE_3__service_message_resolver_service__["a" /* MessageResolver */]])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -1186,12 +1328,14 @@ var MaterialModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__header_header_component__ = __webpack_require__("./src/app/shared/header/header.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__locator_locator_component__ = __webpack_require__("./src/app/shared/locator/locator.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__footer_footer_component__ = __webpack_require__("./src/app/shared/footer/footer.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1209,6 +1353,8 @@ var SharedModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__angular_common__["b" /* CommonModule */],
                 __WEBPACK_IMPORTED_MODULE_0__material_module__["a" /* MaterialModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_8__angular_forms__["d" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_8__angular_forms__["i" /* ReactiveFormsModule */],
             ],
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_4__main_bootstrap_main_bootstrap_component__["a" /* MainBootstrapComponent */],

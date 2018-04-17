@@ -8,12 +8,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,6 +42,20 @@ public class WebConfig extends WebMvcConfigurationSupport {
                 .allowedOrigins("http://localhost:4200")
                 .allowCredentials(false).maxAge(3600);
     }
+
+    @Bean(name = "localeResolver")
+    public LocaleResolver getLocaleResolver(){
+        return new CookieLocaleResolver();
+    }
+
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+        interceptor.setParamName("language");
+        registry.addInterceptor(interceptor);
+    }
+
+
 
     @Bean
     public ObjectMapper objectMapper() {
