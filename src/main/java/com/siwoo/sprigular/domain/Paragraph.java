@@ -39,12 +39,13 @@ public class Paragraph {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private List<Paragraph> children = new ArrayList<>();
-
-    public void setCode(String code) {
-        if(StringUtils.hasText(code)) {
-            this.code = code.replaceAll("\n","&nbsp;");
-        }
-    }
+//
+//    public void setCode(String code) {
+//        if(StringUtils.hasText(code)) {
+//            this.code = code.replaceAll("\n","\\\\r\\\\n");
+//            System.out.println(this.code);
+//        }
+//    }
     public void addChild(Paragraph child) {
         children.add(child);
         if(child.getParent()!=this){

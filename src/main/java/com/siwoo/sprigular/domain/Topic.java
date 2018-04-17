@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -48,6 +49,7 @@ public class Topic {
     @ManyToOne
     @JoinColumn(name="section_id")
     private Section section;
+
 
     public void addParagraph(Paragraph paragraph) {
         paragraphs.add(paragraph);
