@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -40,7 +41,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200/**")
                 .allowedOrigins("http://localhost:4200")
-                .allowCredentials(false).maxAge(3600);
+                .allowedHeaders(HttpHeaders.COOKIE,
+                        HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS,
+                        HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN,
+                        HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS)
+                .allowCredentials(true).maxAge(3600);
     }
 
     @Bean(name = "localeResolver")

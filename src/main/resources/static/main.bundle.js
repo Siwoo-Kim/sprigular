@@ -714,6 +714,46 @@ var TopicComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/service/cookie-resolver.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CookieResolver; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__ = __webpack_require__("./src/app/service/rest-datasource.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CookieResolver = /** @class */ (function () {
+    function CookieResolver(dataSource) {
+        this.dataSource = dataSource;
+        this.cookieUrl = 'cookie';
+    }
+    CookieResolver.prototype.byName = function (cookieName) {
+        return this.dataSource.get(this.cookieUrl + '/' + cookieName);
+    };
+    CookieResolver.prototype.setCookie = function (cookieName, cookieValue) {
+        return this.dataSource.get(this.cookieUrl + "/" + cookieName + "?value=" + cookieValue);
+    };
+    CookieResolver = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */]])
+    ], CookieResolver);
+    return CookieResolver;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/service/locale-resolver.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -923,12 +963,14 @@ var SectionRepository = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__topic_repository_service__ = __webpack_require__("./src/app/service/topic-repository.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locale_resolver_service__ = __webpack_require__("./src/app/service/locale-resolver.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__message_resolver_service__ = __webpack_require__("./src/app/service/message-resolver.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cookie_resolver_service__ = __webpack_require__("./src/app/service/cookie-resolver.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -945,6 +987,7 @@ var ServiceModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */]
             ],
             providers: [
+                __WEBPACK_IMPORTED_MODULE_7__cookie_resolver_service__["a" /* CookieResolver */],
                 __WEBPACK_IMPORTED_MODULE_5__locale_resolver_service__["a" /* LocaleResolver */],
                 __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */],
                 __WEBPACK_IMPORTED_MODULE_2__section_repository_service__["a" /* SectionRepository */],
@@ -1065,7 +1108,7 @@ module.exports = "\r\nmat-toolbar {\r\n  -webkit-box-shadow: 0 3px 5px -1px rgba
 /***/ "./src/app/shared/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"15px\" color=\"primary\">\n  <div fxFlex=\"50%\">\n    <a mat-icon-button [matTooltip]=\"'Home'\" routerLink=\"/\">\n      <mat-icon>adb</mat-icon>\n    </a>\n    <a mat-icon-button (click)=\"onSidenavToggle.emit()\">\n      <mat-icon>list</mat-icon>\n    </a>\n    <a mat-button\n       *ngFor=\"let section of sectionNames;\"\n       [routerLink]=\"['/section', section]\">\n      {{ getLabelBySectionName(section) }}\n    </a>\n  </div>\n  <div fxLayout=\"row-reverse\"\n       style=\"width: 100%\"\n       fxLayoutAlign=\" center\"\n       fxLayoutGap=\"55px\">\n    <a aria-label=\"GitHub Repository\" href=\"https://github.com/Siwoo-Kim\"\n       mat-icon-button\n       tabindex=\"0\" aria-disabled=\"false\">\n      <span class=\"mat-button-wrapper\">\n      <i class=\"ui icon large github\"></i>\n      </span><div class=\"mat-button-ripple mat-ripple\" ></div><div class=\"mat-button-focus-overlay\"></div>\n    </a>\n    <mat-form-field style=\"width: 15px;padding-bottom: -5px;margin-right: 15px;\" >\n      <i class=\"world icon\"></i>\n      <mat-select   [formControl]=\"languageInput\">\n        <mat-option *ngFor=\"let language of ['ko','en']\"\n                    [value]=\"language\" >\n            {{ language }}\n        </mat-option>\n      </mat-select>\n      <mat-hint style=\"color: white;margin-left: 2px !important;\" > {{ localeResolver.currentLocale }}</mat-hint>\n    </mat-form-field>\n  </div>\n</mat-toolbar>\n<app-locator ></app-locator>\n"
+module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"15px\" color=\"primary\">\n  <div fxFlex=\"50%\">\n    <a mat-icon-button [matTooltip]=\"'Home'\" routerLink=\"/\">\n      <mat-icon>adb</mat-icon>\n    </a>\n    <a mat-icon-button (click)=\"onSidenavToggle.emit()\">\n      <mat-icon>list</mat-icon>\n    </a>\n    <a mat-button\n       *ngFor=\"let section of sectionNames;\"\n       [routerLink]=\"['/section', section]\">\n      {{ getLabelBySectionName(section)?.label }}\n    </a>\n  </div>\n  <div fxLayout=\"row-reverse\"\n       style=\"width: 100%\"\n       fxLayoutAlign=\" center\"\n       fxLayoutGap=\"55px\">\n    <a aria-label=\"GitHub Repository\" href=\"https://github.com/Siwoo-Kim\"\n       mat-icon-button\n       tabindex=\"0\" aria-disabled=\"false\">\n      <span class=\"mat-button-wrapper\">\n      <i class=\"ui icon large github\"></i>\n      </span><div class=\"mat-button-ripple mat-ripple\" ></div><div class=\"mat-button-focus-overlay\"></div>\n    </a>\n    <mat-form-field style=\"width: 15px;padding-bottom: -5px;margin-right: 15px;\" >\n      <i class=\"world icon\"></i>\n      <mat-select   [formControl]=\"languageInput\">\n        <mat-option *ngFor=\"let language of ['ko','en']\"\n                    [value]=\"language\" >\n            {{ language }}\n        </mat-option>\n      </mat-select>\n      <mat-hint style=\"color: white;margin-left: 2px !important;\" > {{ localeResolver.currentLocale }}</mat-hint>\n    </mat-form-field>\n  </div>\n</mat-toolbar>\n<app-locator ></app-locator>\n"
 
 /***/ }),
 
@@ -1137,7 +1180,7 @@ var HeaderComponent = /** @class */ (function () {
                 sectionName = 'springboot';
             }
             return label.code.indexOf(sectionName.toLowerCase()) > 0;
-        }).label;
+        });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
@@ -1170,7 +1213,7 @@ module.exports = "\r\n.locator {\r\n  margin: 0;\r\n  padding: 0;\r\n  border: 0
 /***/ "./src/app/shared/locator/locator.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<mat-toolbar class=\"locator\" style=\"margin-top: 4.8em;\" color=\"primary\">\n  <div class=\"ui extra\">\n    Home > Something\n  </div>\n</mat-toolbar>\n"
+module.exports = "\n<mat-toolbar fxLayout fxLayoutAlign=\"space-between center\"\n             class=\"locator\"\n             style=\"margin-top: 4.8em;\"\n             color=\"primary\">\n  <div class=\"ui extra\">\n    Home > Something\n  </div>\n  <div class=\"ui extra\">\n    <mat-chip-list>\n      <mat-chip>Server run: 2018-03-04</mat-chip>\n      <mat-chip color=\"primary\" selected=\"true\">Last Login: {{ lastLogin }}</mat-chip>\n    </mat-chip-list>\n\n  </div>\n</mat-toolbar>\n"
 
 /***/ }),
 
@@ -1180,6 +1223,7 @@ module.exports = "\n<mat-toolbar class=\"locator\" style=\"margin-top: 4.8em;\" 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocatorComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_cookie_resolver_service__ = __webpack_require__("./src/app/service/cookie-resolver.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1190,8 +1234,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var LocatorComponent = /** @class */ (function () {
-    function LocatorComponent() {
+    function LocatorComponent(cookieResolver) {
+        var _this = this;
+        this.cookieResolver = cookieResolver;
+        this.LAST_LOGIN_COOKIE = 'lastLogin';
+        this.cookieResolver
+            .byName(this.LAST_LOGIN_COOKIE)
+            .subscribe(function (_cookie) {
+            _this.lastLogin = _cookie.value == null ? 'First Visit' : decodeURIComponent(_cookie.value);
+            console.log(_cookie);
+            _this.cookieResolver.setCookie(_this.LAST_LOGIN_COOKIE, new Date().toLocaleDateString())
+                .subscribe(function (_cookie) { return console.log(_cookie); });
+        });
     }
     LocatorComponent.prototype.ngOnInit = function () {
     };
@@ -1201,7 +1257,7 @@ var LocatorComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/shared/locator/locator.component.html"),
             styles: [__webpack_require__("./src/app/shared/locator/locator.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_cookie_resolver_service__["a" /* CookieResolver */]])
     ], LocatorComponent);
     return LocatorComponent;
 }());
