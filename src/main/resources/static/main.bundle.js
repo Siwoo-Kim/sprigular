@@ -112,7 +112,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
             ],
             providers: [
-                { provide: __WEBPACK_IMPORTED_MODULE_6__app_tokens__["a" /* BACKEND_URL_TOKEN */], useValue: __WEBPACK_IMPORTED_MODULE_6__app_tokens__["b" /* PROD_SERVER_URL */] }
+                { provide: __WEBPACK_IMPORTED_MODULE_6__app_tokens__["a" /* BACKEND_URL_TOKEN */], useValue: __WEBPACK_IMPORTED_MODULE_6__app_tokens__["b" /* DEV_SERVER_URL */] }
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]]
         })
@@ -129,13 +129,68 @@ var AppModule = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BACKEND_URL_TOKEN; });
-/* unused harmony export DEV_SERVER_URL */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PROD_SERVER_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DEV_SERVER_URL; });
+/* unused harmony export PROD_SERVER_URL */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 
 var BACKEND_URL_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]("BACKEND_TOKEN");
 var DEV_SERVER_URL = 'http://' + location.hostname + ":8080/rest/";
 var PROD_SERVER_URL = 'https://' + location.hostname + "/rest/";
+
+
+/***/ }),
+
+/***/ "./src/app/model/label-section.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export LABEL_SECTION */
+/* unused harmony export LABEL_SECTION_ANGULAR */
+/* unused harmony export LABEL_SECTION_SPRING_BOOT */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LabelSection; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_message_resolver_service__ = __webpack_require__("./src/app/service/message-resolver.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var LABEL_SECTION = 'label.section';
+var LABEL_SECTION_ANGULAR = "angular";
+var LABEL_SECTION_SPRING_BOOT = "springboot";
+var LabelSection = /** @class */ (function () {
+    function LabelSection(messageResolver) {
+        this.messageResolver = messageResolver;
+    }
+    LabelSection.prototype.getMessage = function (sectionName, field) {
+        var code = this.getSectionCode(sectionName, field);
+        return this.messageResolver.getMessage(code);
+    };
+    LabelSection.prototype.getSectionCode = function (sectionName, field) {
+        sectionName = sectionName.toLowerCase();
+        switch (sectionName) {
+            case 'angular': {
+                return LABEL_SECTION + '.' + LABEL_SECTION_ANGULAR + '.' + field.toLowerCase();
+            }
+            case 'spring boot': {
+                return LABEL_SECTION + '.' + LABEL_SECTION_SPRING_BOOT + '.' + field.toLowerCase();
+            }
+            default: return null;
+        }
+    };
+    LabelSection = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_message_resolver_service__["a" /* MessageResolver */]])
+    ], LabelSection);
+    return LabelSection;
+}());
+
 
 
 /***/ }),
@@ -782,11 +837,11 @@ var LocaleResolver = /** @class */ (function () {
         this.localeUrl = 'locale';
         this.localeChange$ = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["b" /* Subject */]();
         dataSource.get(this.localeUrl)
-            .subscribe(function (locale) { return _this.currentLocale = locale; });
+            .subscribe(function (locale) { _this.currentLocale = locale; });
     }
     LocaleResolver.prototype.changeLocale = function (locale) {
         var _this = this;
-        this.dataSource.get(this.localeUrl + UPDATE_LOCALE + locale)
+        this.dataSource.get("" + this.localeUrl + UPDATE_LOCALE + locale)
             .subscribe(function (_locale) {
             _this.currentLocale = _locale;
             _this.localeChange$.next(_locale);
@@ -830,8 +885,7 @@ var MessageResolver = /** @class */ (function () {
         this.messageUrl = 'message';
     }
     MessageResolver.prototype.getMessage = function (code) {
-        return this.dataSource
-            .get(this.messageUrl + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["a" /* QUERY_BY_CODE */] + "&code=" + code + '&locale=' + this.localeResolver.currentLocale);
+        return this.dataSource.get(this.messageUrl + __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["a" /* QUERY_BY_CODE */] + "&code=" + code + '&locale=' + this.localeResolver.currentLocale);
     };
     MessageResolver = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
@@ -964,12 +1018,14 @@ var SectionRepository = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locale_resolver_service__ = __webpack_require__("./src/app/service/locale-resolver.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__message_resolver_service__ = __webpack_require__("./src/app/service/message-resolver.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cookie_resolver_service__ = __webpack_require__("./src/app/service/cookie-resolver.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model_label_section_model__ = __webpack_require__("./src/app/model/label-section.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -987,6 +1043,7 @@ var ServiceModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */]
             ],
             providers: [
+                __WEBPACK_IMPORTED_MODULE_8__model_label_section_model__["a" /* LabelSection */],
                 __WEBPACK_IMPORTED_MODULE_7__cookie_resolver_service__["a" /* CookieResolver */],
                 __WEBPACK_IMPORTED_MODULE_5__locale_resolver_service__["a" /* LocaleResolver */],
                 __WEBPACK_IMPORTED_MODULE_1__rest_datasource_service__["e" /* RestDatasource */],
@@ -1101,14 +1158,14 @@ var FooterComponent = /** @class */ (function () {
 /***/ "./src/app/shared/header/header.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\r\nmat-toolbar {\r\n  -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;\r\n  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;\r\n  z-index: 3 !important;\r\n  margin: 0 !important;\r\n  background: #3f51b5!important;\r\n}\r\n\r\nmat-toolbar a {\r\n  -webkit-tap-highlight-color: transparent;\r\n  text-decoration: none;\r\n  color: white;\r\n}\r\n"
+module.exports = "\r\nmat-toolbar {\r\n  -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;\r\n  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;\r\n  z-index: 3 !important;\r\n  margin: 0 !important;\r\n  background: #3f51b5!important;\r\n}\r\n\r\nmat-toolbar a {\r\n  -webkit-tap-highlight-color: transparent;\r\n  text-decoration: none;\r\n  color: white;\r\n}\r\n\r\n.locale-input {\r\n  width: 15px;padding-bottom: -5px;margin-right: 15px;\r\n}\r\n"
 
 /***/ }),
 
 /***/ "./src/app/shared/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"15px\" color=\"primary\">\n  <div fxFlex=\"50%\">\n    <a mat-icon-button [matTooltip]=\"'Home'\" routerLink=\"/\">\n      <mat-icon>adb</mat-icon>\n    </a>\n    <a mat-icon-button (click)=\"onSidenavToggle.emit()\">\n      <mat-icon>list</mat-icon>\n    </a>\n    <a mat-button\n       *ngFor=\"let section of sectionNames;\"\n       [routerLink]=\"['/section', section]\">\n      {{ getLabelBySectionName(section)?.label }}\n    </a>\n  </div>\n  <div fxLayout=\"row-reverse\"\n       style=\"width: 100%\"\n       fxLayoutAlign=\" center\"\n       fxLayoutGap=\"55px\">\n    <a aria-label=\"GitHub Repository\" href=\"https://github.com/Siwoo-Kim\"\n       mat-icon-button\n       tabindex=\"0\" aria-disabled=\"false\">\n      <span class=\"mat-button-wrapper\">\n      <i class=\"ui icon large github\"></i>\n      </span><div class=\"mat-button-ripple mat-ripple\" ></div><div class=\"mat-button-focus-overlay\"></div>\n    </a>\n    <mat-form-field style=\"width: 15px;padding-bottom: -5px;margin-right: 15px;\" >\n      <i class=\"world icon\"></i>\n      <mat-select   [formControl]=\"languageInput\">\n        <mat-option *ngFor=\"let language of ['ko','en']\"\n                    [value]=\"language\" >\n            {{ language }}\n        </mat-option>\n      </mat-select>\n      <mat-hint style=\"color: white;margin-left: 2px !important;\" > {{ localeResolver.currentLocale }}</mat-hint>\n    </mat-form-field>\n  </div>\n</mat-toolbar>\n<app-locator ></app-locator>\n"
+module.exports = "<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"15px\" color=\"primary\">\n  <div fxFlex=\"50%\">\n    <a mat-icon-button [matTooltip]=\"'Home'\" routerLink=\"/\">\n      <mat-icon>adb</mat-icon>\n    </a>\n    <a mat-icon-button [matTooltip]=\"'List'\" (click)=\"onSidenavToggle.emit()\">\n      <mat-icon>list</mat-icon>\n    </a>\n    <a mat-button *ngFor=\"let section of sectionLabels\"\n       [matTooltip]=\"section.sectionLabel\"\n       [routerLink]=\"['/section', section.sectionName]\">\n       {{ section.sectionLabel }}\n    </a>\n  </div>\n  <div fxLayout=\"row-reverse\"\n       style=\"width: 100%\"\n       fxLayoutAlign=\" center\"\n       fxLayoutGap=\"45px\">\n    <a aria-label=\"GitHub Repository\" href=\"https://github.com/Siwoo-Kim\"\n       mat-icon-button\n       tabindex=\"0\" aria-disabled=\"false\">\n      <span class=\"mat-button-wrapper\">\n      <i class=\"ui icon large github\"></i>\n      </span>\n      <div class=\"mat-button-ripple mat-ripple\" ></div>\n      <div class=\"mat-button-focus-overlay\"></div>\n    </a>\n    <mat-form-field class=\"locale-input\" >\n      <i class=\"world icon\"></i>\n      <mat-select   [formControl]=\"languageInput\">\n        <mat-option *ngFor=\"let language of ['ko','en']\" [value]=\"language\" >\n            {{ language }}\n        </mat-option>\n      </mat-select>\n      <mat-hint style=\"color: white;margin-left: 2px !important;\" > {{ localeResolver.currentLocale }}</mat-hint>\n    </mat-form-field>\n  </div>\n</mat-toolbar>\n<app-locator></app-locator>\n"
 
 /***/ }),
 
@@ -1120,8 +1177,8 @@ module.exports = "\n<mat-toolbar class=\"ui fixed menu nav-container\" fxLayout=
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__ = __webpack_require__("./src/app/service/section-repository.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_locale_resolver_service__ = __webpack_require__("./src/app/service/locale-resolver.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_message_resolver_service__ = __webpack_require__("./src/app/service/message-resolver.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_label_section_model__ = __webpack_require__("./src/app/model/label-section.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1137,14 +1194,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(sectionRepository, localeResolver, messageResolver) {
+    function HeaderComponent(sectionRepository, localeResolver, labelSection) {
         this.sectionRepository = sectionRepository;
         this.localeResolver = localeResolver;
-        this.messageResolver = messageResolver;
-        this.labels = [];
-        this.languageInput = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */]();
+        this.labelSection = labelSection;
+        this.sectionLabels = [];
+        this.languageInput = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]();
         this.onSidenavToggle = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
-        this.codePrefix = 'header.anchor.';
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1153,34 +1209,25 @@ var HeaderComponent = /** @class */ (function () {
             .subscribe(function (value) { return _this.localeResolver.changeLocale(value); });
         this.sectionRepository
             .getNames()
-            .subscribe(function (_sectionNames) { return _this.sectionNames = _sectionNames; });
-        this.localeChangeSubscription = this.localeResolver.localeChange$.subscribe(function () { return _this.resolveLabels(); });
-        this.resolveLabels();
+            .subscribe(function (_sectionNames) {
+            _this.sectionNames = _sectionNames;
+            _this.resolveLabels();
+        });
+        this.localeChangeSubscription = this.localeResolver
+            .localeChange$.subscribe(function () { return _this.resolveLabels(); });
     };
     HeaderComponent.prototype.resolveLabels = function () {
         var _this = this;
-        var codes = [];
-        codes.push(this.codePrefix + 'home');
-        codes.push(this.codePrefix + 'list');
-        codes.push(this.codePrefix + 'springboot');
-        codes.push(this.codePrefix + 'angular');
-        this.labels = [];
-        codes.forEach(function (_code) {
-            _this.messageResolver.getMessage(_code).subscribe(function (_label) {
-                _this.labels.push({ code: _code, label: _label });
+        this.sectionLabels = [];
+        this.sectionNames.forEach(function (_name) {
+            _this.labelSection.getMessage(_name, 'name')
+                .subscribe(function (_label) {
+                _this.sectionLabels.push({ sectionName: _name, sectionLabel: _label });
             });
         });
     };
     HeaderComponent.prototype.ngOnDestroy = function () {
         this.localeChangeSubscription.unsubscribe();
-    };
-    HeaderComponent.prototype.getLabelBySectionName = function (sectionName) {
-        return this.labels.find(function (label) {
-            if (sectionName.toLowerCase().startsWith('spring')) {
-                sectionName = 'springboot';
-            }
-            return label.code.indexOf(sectionName.toLowerCase()) > 0;
-        });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
@@ -1194,7 +1241,7 @@ var HeaderComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_section_repository_service__["a" /* SectionRepository */],
             __WEBPACK_IMPORTED_MODULE_2__service_locale_resolver_service__["a" /* LocaleResolver */],
-            __WEBPACK_IMPORTED_MODULE_3__service_message_resolver_service__["a" /* MessageResolver */]])
+            __WEBPACK_IMPORTED_MODULE_4__model_label_section_model__["a" /* LabelSection */]])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -1276,7 +1323,7 @@ module.exports = "\r\n.main-content-wrapper {\r\n  background: #ffffff!important
 /***/ "./src/app/shared/main-bootstrap/main-bootstrap.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container-fluid\"\n     fxLayout=\"column\"\n     fxLayoutGap=\"30px\"\n     fxLayoutAlign=\"start center\">\n  <div fxFlex class=\"main-content-wrapper\" >\n    <div class=\"position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center\">\n      <div class=\"col-md-5 p-lg-5 mx-auto my-5\">\n        <h1 class=\"display-4 font-weight-normal\">Springular</h1>\n        <p class=\"lead font-weight-normal\">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.</p>\n        <a class=\"btn btn-outline-secondary\"\n           color=\"primary\"\n           mat-raised-button\n           href=\"#\">Coming soon</a>\n      </div>\n      <div class=\"product-device box-shadow d-none d-md-block\"></div>\n      <div class=\"product-device product-device-2 box-shadow d-none d-md-block\"></div>\n    </div>\n  </div>\n  <div fxFlex\n       fxLayout=\"row\"\n       fxFlexAlign=\"center center\"\n       fxLayout.lt-sm=\"column\"\n       class=\"d-md-flex flex-md-equal mb-5 mt-3 w-100 my-md-3 pl-md-3\">\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper bg-green mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 py-3\">\n        <h2 class=\"display-5\">Spring Boot</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image1.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 p-3\">\n        <h2 class=\"display-5\">Angular</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image2.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n  </div>\n  <div class=\"ui alternate stripe vertical segment mt-5\" style=\"background-color: #F2F3F5;padding: 10em 0px;border-radius: 0em;margin: 0em;\">\n    <div class=\"ui stackable center aligned grid container\">\n      <div class=\"fourteen wide column\">\n        <h1 class=\"ui icon header\">\n          <img class=\"ui inline icon image\" src=\"/assets/img/main/image3.png\">\n          Go and Study with the references\n        </h1>\n        <div class=\"ui stackable center aligned vertically padded grid\">\n          <div class=\"eight wide column\">\n            <h3 class=\"ui header\">Best Learning</h3>\n            <p>I personally recommend to you to be better programmer</p>\n            <a mat-raised-button >\n              <i class=\"right chevron icon\" style=\"display: contents\"></i>\n              Get Started Now\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "\n<div class=\"container-fluid\"\n     fxLayout=\"column\"\n     fxLayoutGap=\"30px\"\n     fxLayoutAlign=\"start center\">\n  <div fxFlex class=\"main-content-wrapper\" >\n    <div class=\"position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center\">\n      <div class=\"col-md-5 p-lg-5 mx-auto my-5\">\n        <h1 class=\"display-4 font-weight-normal\">Springular</h1>\n        <p class=\"lead font-weight-normal\" [innerHtml]=\"main\"></p>\n        <a class=\"btn btn-outline-secondary\"\n           color=\"primary\"\n           mat-raised-button\n           href=\"#\">Coming soon</a>\n      </div>\n      <div class=\"product-device box-shadow d-none d-md-block\"></div>\n      <div class=\"product-device product-device-2 box-shadow d-none d-md-block\"></div>\n    </div>\n  </div>\n  <div fxFlex\n       fxLayout=\"row\"\n       fxFlexAlign=\"center center\"\n       fxLayout.lt-sm=\"column\"\n       class=\"d-md-flex flex-md-equal mb-5 mt-3 w-100 my-md-3 pl-md-3\">\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper bg-green mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 py-3\">\n        <h2 class=\"display-5\">Spring Boot</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image1.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n    <div\n      fxFlex=\"50%\"\n      class=\"big2-wrapper mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden\">\n      <div class=\"my-3 p-3\">\n        <h2 class=\"display-5\">Angular</h2>\n        <p class=\"lead\">And an even wittier subheading.</p>\n      </div>\n      <img src=\"/assets/img/main/image2.png\" class=\"box-shadow mx-auto\" style=\"height: 300px; border-radius: 21px 21px 0 0;\" />\n    </div>\n  </div>\n  <div class=\"ui alternate stripe vertical segment mt-5\" style=\"background-color: #F2F3F5;padding: 10em 0px;border-radius: 0em;margin: 0em;\">\n    <div class=\"ui stackable center aligned grid container\">\n      <div class=\"fourteen wide column\">\n        <h1 class=\"ui icon header\">\n          <img class=\"ui inline icon image\" src=\"/assets/img/main/image3.png\">\n          Go and Study with the references\n        </h1>\n        <div class=\"ui stackable center aligned vertically padded grid\">\n          <div class=\"eight wide column\">\n            <h3 class=\"ui header\">Best Learning</h3>\n            <p>I personally recommend to you to be better programmer</p>\n            <a mat-raised-button >\n              <i class=\"right chevron icon\" style=\"display: contents\"></i>\n              Get Started Now\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1286,6 +1333,8 @@ module.exports = "\n<div class=\"container-fluid\"\n     fxLayout=\"column\"\n  
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainBootstrapComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_message_resolver_service__ = __webpack_require__("./src/app/service/message-resolver.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_locale_resolver_service__ = __webpack_require__("./src/app/service/locale-resolver.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1296,8 +1345,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var MainBootstrapComponent = /** @class */ (function () {
-    function MainBootstrapComponent() {
+    function MainBootstrapComponent(messageResolver, localeResolver) {
+        var _this = this;
+        this.messageResolver = messageResolver;
+        this.localeResolver = localeResolver;
+        this.messageResolver
+            .getMessage('label.main.greeting')
+            .subscribe(function (_main) { return _this.main = _main; });
+        this.localeResolver.localeChange$.subscribe(function (locale) {
+            _this.messageResolver.getMessage('label.main.greeting')
+                .subscribe(function (_main) { _this.main = _main; console.log(_this.main); });
+        });
     }
     MainBootstrapComponent.prototype.ngOnInit = function () {
     };
@@ -1307,7 +1368,8 @@ var MainBootstrapComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/shared/main-bootstrap/main-bootstrap.component.html"),
             styles: [__webpack_require__("./src/app/shared/main-bootstrap/main-bootstrap.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__service_message_resolver_service__["a" /* MessageResolver */],
+            __WEBPACK_IMPORTED_MODULE_2__service_locale_resolver_service__["a" /* LocaleResolver */]])
     ], MainBootstrapComponent);
     return MainBootstrapComponent;
 }());

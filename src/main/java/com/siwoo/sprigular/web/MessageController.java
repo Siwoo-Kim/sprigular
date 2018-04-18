@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @RestController
@@ -21,7 +20,8 @@ public class MessageController {
     LocaleResolver localeResolver;
 
     @GetMapping(params = "by=code")
-    public String message(@RequestParam String code, @RequestParam Locale locale) {
+    public String message(@RequestParam String code,
+                          @RequestParam Locale locale) {
         return messageSource.getMessage(code,null,locale);
     }
 }

@@ -1,7 +1,6 @@
 package com.siwoo.sprigular.web.support;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -18,7 +17,6 @@ import java.util.Optional;
 @Service
 public class CookieResolverImpl implements CookieResolver{
 
-
     @Override
     public Cookie createCookieOrReplace(
             String cookieName,
@@ -31,14 +29,10 @@ public class CookieResolverImpl implements CookieResolver{
             Optional<Cookie> optional = byName(cookies, cookieName);
             if(optional.isPresent()) {
                 cookie = optional.get();
-                log.warn("Cookie value :" +cookieValue);
                 if (StringUtils.hasText(cookieValue) && !cookieValue.equals("undefined") && !cookieValue.equals("null")) {
                     setValue(cookie, cookieValue);
-                    log.warn(cookie + " is created");
                 }
             }
-        } else {
-            log.warn("No cookies at all");
         }
         setWeekMaxAge(cookie);
         response.addCookie(cookie);
